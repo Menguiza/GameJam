@@ -54,6 +54,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Dash()
+    {
+        //Desplazamiento lateral de caracter instantaneo y veloz para el jugador
+        if (Input.GetButtonDown("Dash") && axis.x != zero && canDash)
+        {
+            isDashing = true;
+            canDash = false;
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(dashForce * axis.x, 0);
+            Invoke("DashReset", dashTime);
+            Invoke("DashCd", dashCd);
+        }
+    }
+    
     void InputDetection()
     {
         //Se asigna el valor de respectivo eje dependiendo del input en los ejes X y Y del jugador.
@@ -62,7 +76,7 @@ public class PlayerController : MonoBehaviour
         
         Flip(axis.x);
     }
-
+    
     void Flip(float dir)
     {
         //Varia la direccion del sprite dependiendo de hacia a donde este mirando
@@ -76,19 +90,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    void Dash()
-    {
-        if (Input.GetButtonDown("Dash") && axis.x != zero && canDash)
-        {
-            isDashing = true;
-            canDash = false;
-            rb.gravityScale = 0;
-            rb.velocity = new Vector2(dashForce * axis.x, 0);
-            Invoke("DashReset", dashTime);
-            Invoke("DashCd", dashCd);
-        }
-    }
-
     bool IsGrounded()
     {
         //Revisa la permanencia del jugador 
@@ -97,20 +98,26 @@ public class PlayerController : MonoBehaviour
 
     void DashReset()
     {
+        //Restablece las caracteristicas iniciales de la gravedad y marca el fin del estado "Dashing"
         isDashing = false;
         rb.gravityScale = originalGravity;
     }
 
     void DashCd()
     {
+        //Determina la disponibilidad de la mecanica "Dash"
         canDash = true;
     }
-
-    #endregion
     
+    #endregion
+
+    #region Editor
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(groundCheck.position, groundCollRad);
     }
+    
+    #endregion
 }
