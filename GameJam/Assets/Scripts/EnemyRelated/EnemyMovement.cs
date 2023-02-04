@@ -1,15 +1,19 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public static EnemyMovement enemyMovement;
+
     public Transform[] patrolPoints;
     public float moveSpeed;
+    private float moveSpeedSave;
     public int patrolDestination;
 
     //CHASING
-    public Transform playerTransform; // 
+    public Transform playerTransform;  
     public bool isChasing;
     public float chaseDistance;
 
@@ -17,15 +21,21 @@ public class EnemyMovement : MonoBehaviour
     private Transform myTransform;
     private byte zero = 0 , one = 1 ; 
     private float pointFive = .5f ;
+    public float timeSlowed;
+   
+    private void Start()
+    {
+        moveSpeedSave = moveSpeed;
+    }
 
     private void Awake()
     {
         myTransform = transform;
     }
 
-    // Update is called once per frame 
     void Update()
     {
+
         if (isChasing)
         {
             if (myTransform.position.x > playerTransform.position.x)
@@ -38,10 +48,7 @@ public class EnemyMovement : MonoBehaviour
                 myTransform.localScale = new Vector3(-one, one, one);
                 myTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
             }
-
-
         }
-
         else
         {
             if (Vector2.Distance(myTransform.position, playerTransform.position) < chaseDistance)
@@ -50,11 +57,6 @@ public class EnemyMovement : MonoBehaviour
                 isChasing = true;
 
             }
-       
-
-
-
-
          if (patrolDestination == zero)
         {
             myTransform.position = Vector2.MoveTowards(myTransform.position, patrolPoints[zero].position, moveSpeed * Time.deltaTime); ;
@@ -77,5 +79,18 @@ public class EnemyMovement : MonoBehaviour
             }
         }
         }
+    }
+
+    public void Slowness(float slow)
+    {
+        moveSpeed = moveSpeed * slow;
+        StartCoroutine(TimeSlowned());
+       
+       
+    }
+    IEnumerator TimeSlowned()
+    {
+        yield return new WaitForSeconds(timeSlowed);
+        moveSpeed = moveSpeedSave;
     }
 }
