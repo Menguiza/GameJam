@@ -3,24 +3,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float speed = 8f;
+    [SerializeField] private float speed = 8f, jumpForce = 16f, jumpForcePressed = 0.5f;
     [SerializeField] private SpriteRenderer spRenderer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groudLayer;
     
     //UTILIDAD
     private Vector2 axis = Vector2.zero;
-    private Transform playerTrans;
-    private byte zero = 0, one = 1;
-
-    private void Awake()
-    {
-        playerTrans = transform;
-    }
-
+    private byte zero = 0;
+    private float groundCollRad = 0.2f;
+    
     // Update is called once per frame
     void Update()
     {
         InputDetection();
         Move();
+        Jump();
     }
 
     #region Methods
@@ -29,6 +27,19 @@ public class PlayerController : MonoBehaviour
     {
         //Modifica la velocidad del cuerpo rigido del jugador para moverlo respectivamente
         rb.velocity = new Vector2(axis.x * speed, rb.velocity.y);
+    }
+
+    void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > zero)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpForcePressed);
+        }
     }
 
     void InputDetection()
@@ -53,5 +64,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool IsGrounded()
+    {
+        //Revisa la permanencia del jugador 
+        return Physics2D.OverlapCircle(groundCheck.position, groundCollRad, groudLayer);
+    }
+
     #endregion
+    
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(groundCheck.position, groundCollRad);
+    }
 }
