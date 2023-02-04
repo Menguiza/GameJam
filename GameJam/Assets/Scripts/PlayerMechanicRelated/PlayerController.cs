@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] private LayerMask groudLayer;
     
+    public bool isturret { get; private set; }
+    
     //UTILIDAD
     private Vector2 axis = Vector2.zero;
     private byte zero = 0;
@@ -30,10 +32,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         InputDetection();
+        
         if (!isDashing && !HorizontallyBlocked())
         {
-            Move();
-            Jump();
+            TurretMode();
+            
+            if (!isturret)
+            {
+                Move();
+                Jump();
+            }
         }
     }
 
@@ -73,14 +81,34 @@ public class PlayerController : MonoBehaviour
             Invoke("DashCd", dashCd);
         }
     }
+
+    void TurretMode()
+    {
+        if (Input.GetButtonDown("Turret"))
+        {
+            isturret = !isturret;
+        }
+
+        if (!isturret)
+        {
+            spRenderer.color = Color.white;
+        }
+        else
+        {
+            spRenderer.color = Color.green;
+        }
+    }
     
     void InputDetection()
     {
         //Se asigna el valor de respectivo eje dependiendo del input en los ejes X y Y del jugador.
         axis.x = Input.GetAxisRaw("Horizontal");
         axis.y = Input.GetAxisRaw("Vertical");
-        
-        Flip(axis.x);
+
+        if (!isturret)
+        {
+            Flip(axis.x);
+        }
     }
     
     void Flip(float dir)

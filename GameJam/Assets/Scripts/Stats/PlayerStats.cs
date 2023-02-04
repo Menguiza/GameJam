@@ -5,7 +5,7 @@ using Object = System.Object;
 
 public enum GunType
 {
-    None, Pochita, Ricardo, Gaia
+    Damage, Slow, KickBack
 }
 
 public class PlayerStats : MonoBehaviour
@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float playerMaxHealth = 100, firstXpToReach = 10;
 
     public UnityEvent GunChanged;
+    public PlayerController playerCntrl { get; private set; }
     
     private float playerCurrentHealth, xpToReach, currentXp = 0;
 
@@ -76,37 +77,13 @@ public class PlayerStats : MonoBehaviour
         playerstats = this;
         playerCurrentHealth = playerMaxHealth;
         xpToReach = firstXpToReach;
-        gunEquipped = GunType.None;
+        gunEquipped = GunType.Damage;
+        playerCntrl = FindObjectOfType<PlayerController>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            DamagePlayer(10);
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            HealPlayer(10);
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            GainXp(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            gunEquipped++;
-
-            if ((int)gunEquipped > 3)
-            {
-                gunEquipped = 0;
-            }
-            
-            GunChanged.Invoke();
-        }
+        ChangeGun();
     }
 
     public void DamagePlayer(int damage)
@@ -124,12 +101,18 @@ public class PlayerStats : MonoBehaviour
         CurrentXp += xp;
     }
 
-    public void ChangeGun(GunType type)
+    public void ChangeGun()
     {
-        gunEquipped = type;
-        
-        Debug.Log(gunEquipped);
-        
-        GunChanged.Invoke();
+        if (Input.GetButtonDown("Dash") && playerCntrl.isturret)
+        {
+            gunEquipped++;
+
+            if ((int)gunEquipped > 2)
+            {
+                gunEquipped = 0;
+            }
+            
+            GunChanged.Invoke();
+        }
     }
 }
