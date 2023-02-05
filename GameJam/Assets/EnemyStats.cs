@@ -34,7 +34,7 @@ public class EnemyStats : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        PlayerStats player = other.gameObject.GetComponent<PlayerStats>();
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
 
         if (player != null)
