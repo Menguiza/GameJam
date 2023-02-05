@@ -482,53 +482,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551109253}
   m_CullTransparentMesh: 1
---- !u!1 &567741198
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 567741200}
-  - component: {fileID: 567741199}
-  m_Layer: 0
-  m_Name: RockSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &567741199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567741198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1ae54fadfca7df4ebc3ada86cad433c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallingRocks: {fileID: 7591093653947934988, guid: 222ed1e27aac4ba4aa7bd4d1c2ae5184, type: 3}
-  respawnTime: 0.1
-  time: 60
---- !u!4 &567741200
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567741198}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.540209, y: 3.3187716, z: -10.254711}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832919049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,3 +1833,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 222ed1e27aac4ba4aa7bd4d1c2ae5184, type: 3}
+--- !u!1001 &6886689588510557159
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4398546117864479879, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_Name
+      value: RockSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.540209
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.3187716
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.254711
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137978849643778567, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de26237a2634d7f46b63545f3889bc01, type: 3}
