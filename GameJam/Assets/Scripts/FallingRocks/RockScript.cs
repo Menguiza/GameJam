@@ -8,8 +8,6 @@ public class RockScript : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 screenbounds;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
@@ -18,24 +16,19 @@ public class RockScript : MonoBehaviour
         screenbounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (transform.position.y < screenbounds.y * -3            )
+        if (transform.position.y < screenbounds.y * -3 )
         {
             Destroy(this.gameObject);
         }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        PlayerStats player = other.gameObject.GetComponent<PlayerStats>();
-
-
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
             PlayerStats.playerstats.DamagePlayer(34);
-            print("yeh");
-
         }
     }
 }
