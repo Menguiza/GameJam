@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -18,6 +19,16 @@ public class Gun : MonoBehaviour
     public Queue<ObjectPoolInstance> gun2 { get; private set; } 
     public Queue<ObjectPoolInstance> gun3 { get; private set; }
 
+    public float RemainingCD
+    {
+        get => remainingCD;
+    }
+    
+    public float TimeBetweenShots
+    {
+        get => timeBetweenShots;
+    }
+    
     private float Angle
     {
         get => angle;
@@ -58,6 +69,7 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         CreateVisualPoints();
+        playerCntrl.TurretModeToggle.AddListener(DisplayDelay);
     }
 
     // Update is called once per frame
@@ -66,23 +78,7 @@ public class Gun : MonoBehaviour
         CalculateDirection();
         
         SetVisualPoints();
-        
-        /*
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Launch();
-        }
-        */
-        
-        if (playerCntrl.isturret)
-        {
-            pointsFather.gameObject.SetActive(true);
-        }
-        else
-        {
-            pointsFather.gameObject.SetActive(false);
-        }
-        
+
         CDBetweenShots();
     }
 
@@ -103,7 +99,7 @@ public class Gun : MonoBehaviour
 
     void Launch(ObjectPoolInstance prefab)
     {
-        Rigidbody2D _rb = prefab.gameObject.GetComponent<Rigidbody2D>();
+        Rigidbody2D _rb = prefab.rb;
         _rb.AddForce(dir * force, ForceMode2D.Impulse);
     }
     
@@ -163,6 +159,11 @@ public class Gun : MonoBehaviour
                 remainingCD = timeBetweenShots;
             }
         }
+
+        if (!playerCntrl.isturret)
+        {
+            remainingCD = timeBetweenShots;
+        }
     }
 
     #region Pooling
@@ -171,10 +172,10 @@ public class Gun : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            ObjectPoolInstance obj = Instantiate(prefab.gameObject, launchPos.transform).GetComponent<ObjectPoolInstance>();
-            
+            ObjectPoolInstance obj = Instantiate(prefab.gameObject, launchPos.position,quaternion.identity, launchPos).GetComponent<ObjectPoolInstance>();
+            obj.transform.localPosition = Vector3.zero;
             obj.Disable();
-            
+
             switch (poolIndex)
             {
                 case 1:
@@ -240,8 +241,23 @@ public class Gun : MonoBehaviour
                 break;
         }
         
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
         instance.Disable();
-        instance.transform.position = launchPos.transform.position;
+    }
+
+    void DisplayDelay()
+    {
+        if(!pointsFather.gameObject.activeSelf) Invoke("PointsDisplay", 0.5f);
+        else
+        {
+            pointsFather.gameObject.SetActive(false);
+        }
+    }
+    
+    void PointsDisplay()
+    {
+        pointsFather.gameObject.SetActive(true);
     }
 
     #endregion
