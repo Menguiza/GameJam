@@ -1,19 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPoolInstance : MonoBehaviour
 {
-    private Transform _transform;
     private byte poolIndex;
     private Gun gun;
-
-    private void Awake()
-    {
-        _transform = GetComponent<Transform>();
-    }
-
+    public Rigidbody2D rb;
+    
     public void SetPool(byte index, Gun storage)
     {
         poolIndex = index;
