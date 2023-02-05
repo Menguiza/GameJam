@@ -8,6 +8,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemyRelated/IEnemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemyRelated/Moco.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMechanicRelated/ObjectPoolInstance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Stats/PlayerStats.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/GunChanger.cs" root0="FORCE_HIGHLIGHTING" />
@@ -75,6 +79,7 @@
       <workItem from="1675519100559" duration="8764000" />
       <workItem from="1675531746891" duration="12677000" />
       <workItem from="1675571455210" duration="11118000" />
+      <workItem from="1675611550866" duration="7068000" />
     </task>
     <servers />
   </component>

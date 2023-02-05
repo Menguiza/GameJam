@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Object = System.Object;
@@ -89,6 +90,7 @@ public class PlayerStats : MonoBehaviour
     public void DamagePlayer(int damage)
     {
         PlayerCurrentHealth -= damage;
+        StartCoroutine(Damaged());
     }
 
     public void HealPlayer(int health)
@@ -114,5 +116,12 @@ public class PlayerStats : MonoBehaviour
             
             GunChanged.Invoke();
         }
+    }
+
+    IEnumerator Damaged()
+    {
+        playerCntrl.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        playerCntrl.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
