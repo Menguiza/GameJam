@@ -33,5 +33,11 @@ public class ObjectPoolInstance : MonoBehaviour
         {
             Return();
         }
+
+        if (col.collider.CompareTag("Enemy"))
+        {
+            col.collider.GetComponent<IEnemy>().RecieveDamage(20);
+            Return();
+        }
     }
 }
