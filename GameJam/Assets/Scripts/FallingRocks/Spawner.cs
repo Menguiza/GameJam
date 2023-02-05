@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class Spawner : MonoBehaviour
 {
+   
     public GameObject fallingRocks;
     public float respawnTime = 5.0f;
     private Vector2 screenbounds;
     public float time;
+    public bool activate;
 
     // Start is called before the first frame update
     void Start()
     {
-        screenbounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        StartCoroutine(pilarWave());
-
+       
+        activate = false;
     }
     private void Update()
     {
-        time -= Time.deltaTime;
+        if (activate)
+        {
+            StartCoroutine(pilarWave());
+        }
+        screenbounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
     private void spawnPilar()
     {
@@ -29,17 +34,17 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     IEnumerator pilarWave()
     {
-       
-        while (time > 0)
+
+        while (activate)
         {
             yield return new WaitForSeconds(respawnTime);
             spawnPilar();
-
-
         }
-
-
+    }
+    public void Activate(bool confirm)
+    {
+        print("yeh");
+        activate = confirm;
 
     }
-
 }
