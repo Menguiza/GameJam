@@ -101,6 +101,7 @@ public class Gun : MonoBehaviour
     {
         Rigidbody2D _rb = prefab.rb;
         _rb.AddForce(dir * force, ForceMode2D.Impulse);
+        SoundManager.soundManager.PlaySnapShot(9);
     }
     
     void CreateVisualPoints()

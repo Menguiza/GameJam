@@ -34,6 +34,7 @@ public class AntController : MonoBehaviour, IEnemy
             else if (value < 0)
             {
                 life = 0;
+                PlayerStats.playerstats.GainXp(2);
                 Destroy(gameObject);
             }
             else if (value > maxLife)
@@ -115,6 +116,7 @@ public class AntController : MonoBehaviour, IEnemy
 
     public void Shoot()
     {
+        SoundManager.soundManager.PlaySnapShot(2);
         Rigidbody2D _rb = Instantiate(projectilePrefab, launchPoint.position, quaternion.identity).GetComponent<Rigidbody2D>();
         _rb.AddForce(dir * force, ForceMode2D.Impulse);
     }
