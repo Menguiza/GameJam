@@ -108,7 +108,6 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   isChasing: 0
   chaseDistance: 5
-  timeSlowed: 0
 --- !u!61 &6021783918717436329
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,9 +164,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5625766225545415619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 670f8902c35daa94bb49912b2e05a240, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f2489fb0908c61428e1be248849e4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 100
-  enemyCurrentHealth: 0
-  xp: 20
+  maxHealthEnemy: 100
+  currentEnemyHealth: 0
+  xp: 2
