@@ -8,8 +8,6 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Audio/SoundManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemyRelated/IEnemy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemyRelated/Moco.cs" root0="FORCE_HIGHLIGHTING" />
@@ -90,6 +88,7 @@
       <workItem from="1675531746891" duration="12677000" />
       <workItem from="1675571455210" duration="11118000" />
       <workItem from="1675611550866" duration="7068000" />
+      <workItem from="1675631767833" duration="408000" />
     </task>
     <servers />
   </component>

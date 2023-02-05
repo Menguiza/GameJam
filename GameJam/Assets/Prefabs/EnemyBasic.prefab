@@ -73,9 +73,9 @@ GameObject:
   - component: {fileID: 6021783918717436334}
   - component: {fileID: 8990914075381325715}
   - component: {fileID: 4629111647621034398}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyBasic
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  moveSpeed: 3
+  moveSpeed: 1
   patrolDestination: 0
   playerTransform: {fileID: 0}
   isChasing: 0
@@ -213,8 +213,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &8990914075381325715
 MonoBehaviour:
   m_ObjectHideFlags: 0

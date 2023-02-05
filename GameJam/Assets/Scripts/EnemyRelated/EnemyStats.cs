@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour,IEnemy
 {
-    public float maxHealthEnemy = 100, currentEnemyHealth;
+    public float maxHealthEnemy = 20, currentEnemyHealth;
     public int xp;
 
 
@@ -30,7 +30,7 @@ public class EnemyStats : MonoBehaviour,IEnemy
 
         if (player != null)
         {
-            PlayerStats.playerstats.DamagePlayer(34);
+            PlayerStats.playerstats.DamagePlayer(5);
             SoundManager.soundManager.PlaySnapShot(3);
         }
     }

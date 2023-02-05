@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Object = System.Object;
+using UnityEngine.SceneManagement;
 
 public enum GunType
 {
@@ -47,6 +48,7 @@ public class PlayerStats : MonoBehaviour
             {
                 playerCurrentHealth = 0;
                 SoundManager.soundManager.PlaySnapShot(5);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             else
             {
