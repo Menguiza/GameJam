@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour,IEnemy
 {
     public float maxHealthEnemy = 100, currentEnemyHealth;
     public int xp;
@@ -17,18 +17,10 @@ public class EnemyStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            currentEnemyHealth -= maxHealthEnemy;
-        }
-
-
         if (currentEnemyHealth <=0)
         {
-            
             PlayerStats.playerstats.GainXp(xp);
             gameObject.SetActive(false);
-
         }
     }
 
@@ -36,20 +28,16 @@ public class EnemyStats : MonoBehaviour
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
-
         if (player != null)
         {
             PlayerStats.playerstats.DamagePlayer(34);
-
-
+            SoundManager.soundManager.PlaySnapShot(3);
         }
     }
 
-    public void DamageEnemy(int damage)
+
+    public void RecieveDamage(int damage)
     {
         currentEnemyHealth -= damage;
-
     }
-
-
 }

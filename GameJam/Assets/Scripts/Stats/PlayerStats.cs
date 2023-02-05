@@ -46,6 +46,7 @@ public class PlayerStats : MonoBehaviour
             else if(value < 0)
             {
                 playerCurrentHealth = 0;
+                SoundManager.soundManager.PlaySnapShot(5);
             }
             else
             {
@@ -75,6 +76,8 @@ public class PlayerStats : MonoBehaviour
     
     private void Awake()
     {
+        Application.targetFrameRate = 75;
+        QualitySettings.vSyncCount = 0;
         playerstats = this;
         playerCurrentHealth = playerMaxHealth;
         xpToReach = firstXpToReach;

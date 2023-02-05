@@ -14,6 +14,7 @@ public class ObjectPoolInstance : MonoBehaviour
 
     public void Return()
     {
+        SoundManager.soundManager.PlaySnapShot(4);
         gun.Return(this, poolIndex);
     }
 

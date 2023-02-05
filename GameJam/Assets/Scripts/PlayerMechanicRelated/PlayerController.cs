@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,8 +28,8 @@ public class PlayerController : MonoBehaviour
     //UTILIDAD
     private Vector2 axis = Vector2.zero;
     private byte zero = 0;
-    private float groundCollRad = 0.2f, dashTime = 0.2f, originalGravity = 1f;
-    private bool isDashing = false, canDash = true;
+    private float groundCollRad = 0.2f, dashTime = 0.2f, originalGravity = 1f, timer = 0;
+    private bool isDashing = false, canDash = true, canSound = true;
 
     private void Awake()
     {
@@ -54,6 +55,15 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("Horizontal", Math.Abs(Input.GetAxisRaw("Horizontal")));
         anim.SetBool("Grounded", IsGrounded());
         anim.SetBool("Turret", isturret);
+        
+        if (timer > 0 && !canSound)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                canSound = true;
+            }
+        }
     }
 
     #region Methods
@@ -63,6 +73,8 @@ public class PlayerController : MonoBehaviour
         //Modifica la velocidad del cuerpo rigido del jugador para moverlo respectivamente
         rb.velocity = new Vector2(axis.x * speed, rb.velocity.y);
         
+        if(axis.x != 0)PlaySound();
+
         Dash();
     }
 
@@ -72,6 +84,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             anim.SetTrigger("Jump");
+            SoundManager.soundManager.PlaySnapShot(8);
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > zero)
@@ -89,6 +102,7 @@ public class PlayerController : MonoBehaviour
             canDash = false;
             rb.gravityScale = 0;
             anim.SetTrigger("Dash");
+            SoundManager.soundManager.PlaySnapShot(1);
             trail.SetActive(true);
             rb.velocity = new Vector2(dashForce * axis.x, 0);
             Invoke("DashReset", dashTime);
@@ -102,6 +116,7 @@ public class PlayerController : MonoBehaviour
         {
             isturret = !isturret;
             TurretModeToggle.Invoke();
+            SoundManager.soundManager.PlaySnapShot(7);
         }
     }
     
@@ -170,6 +185,16 @@ public class PlayerController : MonoBehaviour
     }
     
     #endregion
+
+    void PlaySound()
+    {
+        if (canSound)
+        {
+            SoundManager.soundManager.PlaySnapShot(6);
+            canSound = false;
+            timer = SoundManager.soundManager.Clips.ElementAt(6).length/2;
+        }
+    }
 
     #region Editor
 

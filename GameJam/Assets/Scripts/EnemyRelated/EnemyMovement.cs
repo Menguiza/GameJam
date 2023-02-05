@@ -15,8 +15,8 @@ public class EnemyMovement : MonoBehaviour
 
     //UTILIDAD
     private Transform myTransform;
-    private byte zero = 0 , one = 1 ; 
-    private float pointFive = .5f ;
+    private byte zero = 0, one = 1;
+    private float pointFive = .5f;
 
     private void Awake()
     {
@@ -33,13 +33,12 @@ public class EnemyMovement : MonoBehaviour
                 myTransform.localScale = new Vector3(one, one, one);
                 myTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
             }
+
             if (myTransform.position.x < playerTransform.position.x)
             {
                 myTransform.localScale = new Vector3(-one, one, one);
                 myTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
             }
-
-
         }
 
         else
@@ -48,34 +47,32 @@ public class EnemyMovement : MonoBehaviour
 
             {
                 isChasing = true;
-
             }
-       
 
 
-
-
-         if (patrolDestination == zero)
-        {
-            myTransform.position = Vector2.MoveTowards(myTransform.position, patrolPoints[zero].position, moveSpeed * Time.deltaTime); ;
-
-            if (Vector2.Distance(myTransform.position, patrolPoints[zero].position) < pointFive)
+            if (patrolDestination == zero)
             {
-                myTransform.localScale = new Vector3(one, one, one);
-                patrolDestination = one;
+                myTransform.position = Vector2.MoveTowards(myTransform.position, patrolPoints[zero].position,
+                    moveSpeed * Time.deltaTime);
+
+                if (Vector2.Distance(myTransform.position, patrolPoints[zero].position) < pointFive)
+                {
+                    myTransform.localScale = new Vector3(one, one, one);
+                    patrolDestination = one;
+                }
             }
-        }
 
-        if (patrolDestination == one)
-        {
-            myTransform.position = Vector2.MoveTowards(myTransform.position, patrolPoints[one].position, moveSpeed * Time.deltaTime); ;
-
-            if (Vector2.Distance(myTransform.position, patrolPoints[one].position) < pointFive)
+            if (patrolDestination == one)
             {
-                myTransform.localScale = new Vector3(-one, one, one);
-                patrolDestination = zero;
+                myTransform.position = Vector2.MoveTowards(myTransform.position, patrolPoints[one].position,
+                    moveSpeed * Time.deltaTime);
+
+                if (Vector2.Distance(myTransform.position, patrolPoints[one].position) < pointFive)
+                {
+                    myTransform.localScale = new Vector3(-one, one, one);
+                    patrolDestination = zero;
+                }
             }
-        }
         }
     }
 }
