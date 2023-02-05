@@ -8,12 +8,15 @@ public class GunChanger : MonoBehaviour
 {
     [SerializeField] private CanvasGroup cnvsGroup;
     [SerializeField] private Sprite gun1, gun2, gun3;
-    [SerializeField] private Image icon;
+    [SerializeField] private Image icon, icon2;
+
+    private Gun gun;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerStats.playerstats.GunChanged.AddListener(ChangeIcon);
+        gun = FindObjectOfType<Gun>();
     }
 
     private void Update()
@@ -26,6 +29,10 @@ public class GunChanger : MonoBehaviour
         {
             cnvsGroup.alpha = 0;
         }
+
+        icon2.sprite = icon.sprite;
+        
+        icon.fillAmount = Mathf.Abs(gun.RemainingCD-gun.TimeBetweenShots)/gun.TimeBetweenShots;
     }
 
     void ChangeIcon()

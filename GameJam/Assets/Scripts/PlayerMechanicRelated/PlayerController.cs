@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform leftCheck;
     [Space]
     [SerializeField] private LayerMask groudLayer;
+    [Space] 
+    [SerializeField] private Animator anim;
+    [Space] 
+    [SerializeField] private GameObject trail;
+    [Space] 
+    public UnityEvent TurretModeToggle;
     
     public bool isturret { get; private set; }
     
@@ -43,6 +50,10 @@ public class PlayerController : MonoBehaviour
                 Jump();
             }
         }
+        
+        anim.SetFloat("Horizontal", Math.Abs(Input.GetAxisRaw("Horizontal")));
+        anim.SetBool("Grounded", IsGrounded());
+        anim.SetBool("Turret", isturret);
     }
 
     #region Methods
@@ -60,6 +71,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            anim.SetTrigger("Jump");
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > zero)
@@ -76,6 +88,8 @@ public class PlayerController : MonoBehaviour
             isDashing = true;
             canDash = false;
             rb.gravityScale = 0;
+            anim.SetTrigger("Dash");
+            trail.SetActive(true);
             rb.velocity = new Vector2(dashForce * axis.x, 0);
             Invoke("DashReset", dashTime);
             Invoke("DashCd", dashCd);
@@ -87,15 +101,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Turret"))
         {
             isturret = !isturret;
-        }
-
-        if (!isturret)
-        {
-            spRenderer.color = Color.white;
-        }
-        else
-        {
-            spRenderer.color = Color.green;
+            TurretModeToggle.Invoke();
         }
     }
     
@@ -133,8 +139,8 @@ public class PlayerController : MonoBehaviour
     bool HorizontallyBlocked()
     {
         //Revisa el bloqueo horizontal del jugador al estar en el aire
-        if ((Physics2D.OverlapCircle(rightCheck.position, groundCollRad, groudLayer) ||
-             Physics2D.OverlapCircle(leftCheck.position, groundCollRad, groudLayer)) &&
+        if ((Physics2D.OverlapCircle(rightCheck.position, groundCollRad*2, groudLayer) ||
+             Physics2D.OverlapCircle(leftCheck.position, groundCollRad*2, groudLayer)) &&
             !IsGrounded())
         {
             return true;
@@ -148,12 +154,19 @@ public class PlayerController : MonoBehaviour
         //Restablece las caracteristicas iniciales de la gravedad y marca el fin del estado "Dashing"
         isDashing = false;
         rb.gravityScale = originalGravity;
+        anim.ResetTrigger("Dash");
+        Invoke("TrailNotVisible", 0.5f);
     }
 
     void DashCd()
     {
         //Determina la disponibilidad de la mecanica "Dash"
         canDash = true;
+    }
+
+    void TrailNotVisible()
+    {
+        trail.SetActive(false);
     }
     
     #endregion
@@ -164,8 +177,8 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(groundCheck.position, groundCollRad);
-        Gizmos.DrawSphere(rightCheck.position, groundCollRad);
-        Gizmos.DrawSphere(leftCheck.position, groundCollRad);
+        Gizmos.DrawSphere(rightCheck.position, groundCollRad*2);
+        Gizmos.DrawSphere(leftCheck.position, groundCollRad*2);
     }
     
     #endregion
